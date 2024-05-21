@@ -82,7 +82,7 @@ const saveImage = (base64String) => {
   console.log(__dirname);
   console.log(imagePath);
   fs.writeFileSync(imagePath, imageData);
-  return `${imagePath}`;
+  return imagePath;
 };
 
 // 新增課程
