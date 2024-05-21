@@ -70,8 +70,9 @@ const saveImage = (base64String) => {
   const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
   const imageData = Buffer.from(base64Data, "base64");
   const imagePath = path.join(__dirname, `image-7.jpg`);
+  console.log(imagePath);
   fs.writeFileSync(imagePath, imageData);
-  return `http://your-app-url/${imagePath}`;
+  return `${imagePath}`;
 };
 
 // 新增課程
