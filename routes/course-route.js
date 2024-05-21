@@ -67,7 +67,7 @@ router.get("/:_id", async (req, res) => {
 const saveImage = (base64String) => {
   const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
   const imageData = Buffer.from(base64Data, "base64");
-  const imagePath = `../client/public/img/image-${Date.now()}.jpg`; // 添加時間戳避免圖片覆蓋
+  const imagePath = `/client/public/img/image-${Date.now()}.jpg`; // 添加時間戳避免圖片覆蓋
   const imagetruePath = `img/image-${Date.now()}.jpg`; // 添加時間戳避免圖片覆蓋
   fs.writeFileSync(imagePath, imageData);
   return `http://localhost:3000/${imagetruePath}`;
