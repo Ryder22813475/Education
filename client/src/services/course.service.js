@@ -9,7 +9,7 @@ class CourseService {
     } else {
       token = "";
     }
-    console.log(base64String);
+    console.log("這"+ base64String);
     return axios.post(
       API_URL,
       { title, description, price,base64String },

@@ -32,7 +32,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "client" ,"build"))) //改
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/api/user", authRoute);
 // course route應該被jwt保護
