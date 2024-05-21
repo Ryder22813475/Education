@@ -66,10 +66,19 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
+fs.readdir(__dirname, (err, files) => {
+  if (err) {
+    console.error('Error reading directory:', err);
+    return;
+  }
+  console.log('Files and directories in', __dirname);
+  console.log(files);
+});
+
 const saveImage = (base64String) => {
   const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
   const imageData = Buffer.from(base64Data, "base64");
-  const imagePath = path.join(__dirname, 'client', 'image-7.jpg');
+  const imagePath = path.join(__dirname, 'image-7.jpg');
   console.log(__dirname);
   console.log(imagePath);
   fs.writeFileSync(imagePath, imageData);
