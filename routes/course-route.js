@@ -69,7 +69,7 @@ router.get("/:_id", async (req, res) => {
 const saveImage = (base64String) => {
   const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
   const imageData = Buffer.from(base64Data, "base64");
-  const imagePath = path.join(__dirname, 'client/public/img/image-${Date.now()}.jpg');
+  const imagePath = path.join(__dirname, '/img/image-${Date.now()}.jpg');
   fs.writeFileSync(imagePath, imageData);
   return `http://your-app-url/${imagePath}`;
 };
