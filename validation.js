@@ -21,6 +21,7 @@ const loginValidation = (data) => {
 };
 
 const courseValidation = (data) => {
+  console.log("這"+ base64String);
   const schema = Joi.object({
     title: Joi.string().min(6).max(50).required(),
     description: Joi.string().min(6).max(150).required(),

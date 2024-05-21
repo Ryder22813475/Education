@@ -94,32 +94,35 @@ const saveImage = (base64String) => {
 
 // 新增课程
 router.post("/", async (req, res) => {
+  console.log(req.body)
   try {
     const { error } = courseValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     if (req.user.isStudent()) {
-      return res.status(400).send("只有讲师才能发布新课程。若你已经是讲师，请通过讲师账号登录。");
+      return res
+        .status(400)
+        .send("只有講師才能發佈新課程。若你已經是講師，請透過講師帳號登入。");
     }
+
     const { title, description, price, base64String } = req.body;
     const imageUrl = await saveImage(base64String);
-
+    
     const newCourse = new Course({
       title,
       description,
       price,
-      imageUrl, // 修改为imageUrl，表示存储的是图像的路径
+      base64String: imageUrl,
       instructor: req.user._id,
     });
 
     const savedCourse = await newCourse.save();
-    return res.send("新课程已经保存");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("无法创建课程。。。");
+    return res.send("新課程已經保存");
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send("無法創建課程。。。");
   }
 });
-
 
 // 讓學生透過課程id來註冊新課程
 router.post("/enroll/:_id", async (req, res) => {

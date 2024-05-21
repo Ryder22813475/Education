@@ -33,9 +33,10 @@ const PostCourseComponent = (props) => {
   };
   
 
+
   const postCourse = () => {
-    console.log("這"+ base64String);
-    CourseService.post(title, description, price, base64String)
+    console.log(base64String);
+    CourseService.post(title, description, price,base64String)
       .then(() => {
         window.alert("新課程已創建成功");
         navigate("/course");
