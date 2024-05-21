@@ -2,6 +2,8 @@ const router = require("express").Router();
 const Course = require("../models").course;
 const courseValidation = require("../validation").courseValidation;
 const fs = require("fs");
+const path = require('path');
+
 
 router.use((req, res, next) => {
   console.log("course route正在接受一個request...");
