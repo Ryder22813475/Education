@@ -76,45 +76,51 @@ fs.readdir(__dirname, (err, files) => {
 });
 
 const saveImage = (base64String) => {
-  const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
-  const imageData = Buffer.from(base64Data, "base64");
-  const imagePath = path.join(__dirname, 'image-7.jpg');
-  console.log(__dirname);
-  console.log(imagePath);
-  fs.writeFileSync(imagePath, imageData);
-  return imagePath;
+  try {
+    const base64Data = base64String.replace(/^data:image\/\w+;base64,/, "");
+    const imageData = Buffer.from(base64Data, "base64");
+    const uploadsDir = path.join(__dirname, 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir);
+    }
+    const imagePath = path.join(uploadsDir, `image-${Date.now()}.jpg`);
+    fs.writeFileSync(imagePath, imageData);
+    return imagePath;
+  } catch (error) {
+    console.error(error);
+    throw new Error("无法保存图像");
+  }
 };
 
-// 新增課程
+// 新增课程
 router.post("/", async (req, res) => {
   try {
     const { error } = courseValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     if (req.user.isStudent()) {
-      return res
-        .status(400)
-        .send("只有講師才能發佈新課程。若你已經是講師，請透過講師帳號登入。");
+      return res.status(400).send("只有讲师才能发布新课程。若你已经是讲师，请通过讲师账号登录。");
     }
 
     const { title, description, price, base64String } = req.body;
     const imageUrl = await saveImage(base64String);
-    
+
     const newCourse = new Course({
       title,
       description,
       price,
-      base64String: imageUrl,
+      imageUrl, // 修改为imageUrl，表示存储的是图像的路径
       instructor: req.user._id,
     });
 
     const savedCourse = await newCourse.save();
-    return res.send("新課程已經保存");
-  } catch (e) {
-    console.error(e);
-    return res.status(500).send("無法創建課程。。。");
+    return res.send("新课程已经保存");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("无法创建课程。。。");
   }
 });
+
 
 // 讓學生透過課程id來註冊新課程
 router.post("/enroll/:_id", async (req, res) => {
