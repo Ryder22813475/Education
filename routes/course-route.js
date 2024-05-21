@@ -106,7 +106,7 @@ router.post("/", async (req, res) => {
     }
 
     const { title, description, price, base64String } = req.body;
-    const imageUrl = await saveImage(base64String);
+    const imageUrl = req.body.base64String;
     
     const newCourse = new Course({
       title,
