@@ -9,6 +9,7 @@ class CourseService {
     } else {
       token = "";
     }
+    console.log(base64String);
     return axios.post(
       API_URL,
       { title, description, price,base64String },

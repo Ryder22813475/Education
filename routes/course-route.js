@@ -101,7 +101,6 @@ router.post("/", async (req, res) => {
     if (req.user.isStudent()) {
       return res.status(400).send("只有讲师才能发布新课程。若你已经是讲师，请通过讲师账号登录。");
     }
-
     const { title, description, price, base64String } = req.body;
     const imageUrl = await saveImage(base64String);
 
