@@ -9,12 +9,17 @@ const passport = require("passport");
 require("./config/passport")(passport);
 const cors = require("cors");
 const bodyParser = require('body-parser');
+const path = require("path"); //改
+const port = process.env.PORT || 8080; //改
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // 連結MongoDB
+
+
 mongoose
-  .connect("mongodb://localhost:27017/mernDB")
+  .connect(process.env.MONGODB_CONNECTION)
   .then(() => {
     console.log("連結到mongodb...");
   })
@@ -26,6 +31,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.static(path.join(__dirname, "client" ,"build"))) //改
 
 app.use("/api/user", authRoute);
 // course route應該被jwt保護
@@ -36,6 +42,18 @@ app.use(
   courseRoute
 );
 
-app.listen(8080, () => {
-  console.log("後端伺服器聆聽在port 8080...");
+//改
+if(
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  app.get("*",(req,res) =>{
+    res.sendFile(path.join(__dirname, "client" , "build" ,"index.html "))
+  })
+}
+
+
+
+app.listen(port, () => {
+  console.log("後端伺服器聆聽在port...");
 });
