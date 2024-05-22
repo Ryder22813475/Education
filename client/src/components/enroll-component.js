@@ -116,7 +116,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
     {currentUser && currentUser.user.role == "student" && searchResult && searchResult.length !== 0 && (
       <div>
         <p>相關課程資訊如下</p>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex",flexWrap:"wrap" }}>
           {searchResult.map((course) => {
             return (
               <div
