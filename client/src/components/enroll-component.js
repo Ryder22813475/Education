@@ -25,6 +25,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
         });
     };
     const handleElse = () => {
+      if (currentUser && currentUser.user) {
       CourseService.getEnrolledCourses(currentUser.user._id)
         .then((data) => {
           const datas = data.data
@@ -36,8 +37,9 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
           console.log(e);
         });
     };
-    handleElse();
+  };
     handleAll();
+    handleElse();
   }, []);
 
 
@@ -158,9 +160,8 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
                     <a
                       href="#"
                       id={course._id}
-                      className="btn btn-primary card-text"
+                      className="btn btn-danger card-text"
                       onClick={cancelEnroll}
-                      style={{backgroundColor:"#FFC107"}}
                     >
                       取消註冊
                     </a>

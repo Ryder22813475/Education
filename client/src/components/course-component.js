@@ -90,7 +90,7 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
                     <a
                       href="#"
                       id={course._id}
-                      className="btn btn-primary card-text"
+                      className="btn btn-danger card-text"
                       onClick={cancel}
                     >
                       刪除課程
