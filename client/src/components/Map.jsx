@@ -6,7 +6,7 @@ import AnotherComponent from './Edit';
 
 async function fetchData() {
   try {
-    const response = await fetch('/api/map/education-data');
+    const response = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/education-data');
     const data = await response.json();
     console.log(data);
   } catch (error) {
@@ -25,7 +25,7 @@ const GeoJsonMap = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const geoJsonResponse = await fetch('http://localhost:3000/api/map/geoJsonData');
+        const geoJsonResponse = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/geoJsonData');
         if (!geoJsonResponse.ok) {
           throw new Error(`HTTP error ${geoJsonResponse.status}`);
         }
@@ -58,7 +58,7 @@ const GeoJsonMap = () => {
   };
   const sendDataToBackend = async (countyName, layer) => {
     try {
-      const response = await fetch('http://localhost:3000/api/map/data', {
+      const response = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const GeoJsonMap = () => {
   function fetchData() {
     async function fetchDataFromServer() {
       try {
-        const geoJsonResponse = await fetch('http://localhost:3000/api/map/geoJsonData');
+        const geoJsonResponse = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/geoJsonData');
         if (!geoJsonResponse.ok) {
           throw new Error(`HTTP error ${geoJsonResponse.status}`);
         }
@@ -107,7 +107,7 @@ const GeoJsonMap = () => {
   function updateDataInDatabase(updatedData) {
     const { _id, ...dataToUpdate } = updatedData; // 剥离 _id 字段，因为它是数据库中的主键
   
-    fetch(`http://localhost:3000/api/map/data/${_id}`, {
+    fetch(`https://educations-cf9fc1287fed.herokuapp.com/api/map/data/${_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

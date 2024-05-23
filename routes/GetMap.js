@@ -6,7 +6,7 @@ const fs = require('fs');
 const Education = require("../model").education;
 
 // 加载地理数据
-const geoJsonData = JSON.parse(fs.readFileSync('../GEO.json', 'utf8'));
+const geoJsonData = JSON.parse(fs.readFileSync('/GEO.json', 'utf8'));
 
 router.use((req, res, next) => {
   console.log("正在接收一個跟auth有關的請求");
