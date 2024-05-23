@@ -6,14 +6,31 @@ import AnotherComponent from './Edit';
 
 async function fetchData() {
   try {
+    console.log("开始获取数据...");
     const response = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/education-data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     const data = await response.json();
-    console.log(data);
+    console.log("成功获取到数据:", data);
+    return data;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('获取数据时出错:', error);
+    throw error; // 可以选择将错误继续抛出以供调用者处理
   }
 }
-fetchData();
+
+// 调用 fetchData 函数，并处理返回的数据
+fetchData()
+  .then(data => {
+    // 在这里处理获取到的数据
+    console.log("在这里处理获取到的数据:", data);
+  })
+  .catch(error => {
+    // 在这里处理错误情况
+    console.error("处理获取数据时出错:", error);
+  });
+
 
 
 const GeoJsonMap = () => {
