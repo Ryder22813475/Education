@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 const mapRoute = require("./routes").mapRoute;
-const passport = require("passport");
-require("./config/passport")(passport);
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const path = require("path"); //改
