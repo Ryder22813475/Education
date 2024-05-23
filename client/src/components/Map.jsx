@@ -4,42 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import PopupContent from './PopupContent';
 import AnotherComponent from './Edit';
 
-async function fetchDataAndSendToBackend() {
-  try {
-    const response = await fetch('https://stats.moe.gov.tw/files/ebook/Education_Statistics/111/111edu_B_1_4.json');
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    const data = await response.json();
-
-    // 将数据发送到 Express 后端
-    await sendToBackend(data);
-  } catch (error) {
-    console.error('Error fetching and sending data:', error);
-  }
-}
-
-async function sendToBackend(data) {
-  try {
-    console.log("有")
-    const response = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/save-data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    if (!response.ok) {
-      throw new Error('Failed to send data to backend');
-    }
-    console.log('Data sent to backend successfully');
-  } catch (error) {
-    console.error('Error sending data to backend:', error);
-  }
-}
-
-// 调用函数来获取数据并发送到后端
-fetchDataAndSendToBackend();
 
 const GeoJsonMap = () => {
   const [geoJsonData, setGeoJsonData] = useState(null);
