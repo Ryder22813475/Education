@@ -22,6 +22,8 @@ mongoose
     console.log(e);
   });
 
+
+
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +44,8 @@ if(
   })
 }
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.listen(port, () => {
   console.log("後端伺服器聆聽在port...");
