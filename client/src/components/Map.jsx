@@ -21,6 +21,7 @@ async function fetchDataAndSendToBackend() {
 
 async function sendToBackend(data) {
   try {
+    console.log("有")
     const response = await fetch('https://educations-cf9fc1287fed.herokuapp.com/api/map/save-data', {
       method: 'POST',
       headers: {
